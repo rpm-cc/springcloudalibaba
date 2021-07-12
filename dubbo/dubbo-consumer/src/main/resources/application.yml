@@ -1,0 +1,13 @@
+#consumer 客户段配置学习
+
+server:
+  port: 8085
+
+#dubbo 配置
+
+dubbo:
+  application:
+    name: dubboconsumer
+  registry:
+    group: dubbo
+    address: zookeeper://127.0.0.1:2181

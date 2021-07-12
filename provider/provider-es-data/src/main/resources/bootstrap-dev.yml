@@ -1,0 +1,22 @@
+server:
+  port: 8083
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 83a529c8-8691-4632-b849-0b187148f240
+        group: springcloudalibaba
+      config:
+        group: springcloudalibaba
+        server-addr: localhost:8848
+        prefix: ${spring.application.name}
+        file-extension: yaml  # nacos 我使用的1.2.1 版本不支持 有，yml
+        namespace: 83a529c8-8691-4632-b849-0b187148f240
+  elasticsearch:
+    rest:
+      uris: es-cn-st220i1pt0005d43v.public.elasticsearch.aliyuncs.com:9200
+      username: elastic
+      password: Douniu*0112
+
+

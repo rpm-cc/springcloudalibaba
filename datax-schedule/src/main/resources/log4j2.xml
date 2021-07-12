@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，
+ 你会看到log4j2内部各种详细输出。可以设置成OFF(关闭)或Error(只输出错误信息)
+-->
+<Configuration status="Error">
+    <!-- 日志文件目录和压缩文件目录配置 -->
+
+    <Properties>
+        <Property name="level">DEBUG</Property>
+        <property name="app.name">datax-schedule</property>
+        <property name="basePath">${sys:user.home}/logs</property>
+        <property name="log-file">${basePath}/${app.name}.log</property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd 'at' HH:mm:ss z} [%t] %-5level %logger{36} %L %M - %msg%xEx%n</Property>
+        <Property name="fileGz">${sys:user.home}/logs/gz</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 输出控制台日志的配置 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->
+            <ThresholdFilter level="${level}" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+            <!-- 输出日志的格式 -->
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <!--Info级别日志输出-->
+        <!-- 打印出所有的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档 -->
+        <RollingRandomAccessFile name="out" fileName="${log-file}" immediateFlush="false"
+                                 filePattern="${fileGz}/$${date:yyyy-MM}/${app.name}-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="6" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.thymeleaf" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+        </logger>
+        <!--监控系统信息-->
+        <!--若是additivity设为false，则 子Logger 只会在自己的appender里输出，而不会在 父Logger 的appender里输出。-->
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <AsyncRoot level="${level}" additivity="false">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="out"/>
+        </AsyncRoot>
+    </Loggers>
+
+</Configuration>

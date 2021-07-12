@@ -1,0 +1,10 @@
+server:
+  port: 8086
+
+spring:
+  mail:
+   host: smtp.263.net
+   port: 25
+   username: xxx@xxx.com
+   password: "******"
+   protocol: smtp

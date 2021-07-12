@@ -1,0 +1,23 @@
+name: unit-rule
+description: is unit-rule
+priority: 1
+compositeRuleType: ConditionalRuleGroup
+composingRules:
+  - name: age
+    description: 2313fsdfs1
+    condition: age<29
+    priority: 2
+    actions:
+      - System.out.println("ConditionalRuleGroup rule2");
+  - name: sex
+    description: 3sdfsdfa
+    condition: sex==1
+    priority: 3
+    actions:
+      - System.out.println("ConditionalRuleGroup rule3");
+  - name: con
+    description: if true excute others
+    condition: con==true
+    priority: 1
+    actions:
+      - System.out.println("ConditionalRuleGroup connnnnnnnn");

@@ -1,0 +1,13 @@
+[
+  
+    {
+    "resource": "orderInfo",
+    "limitApp": "default",
+    "grade": 0,
+    "count": 2,
+    "slowRatioThreshold": 0.2,
+    "minRequestAmount": 5,
+    "statIntervalMs": 1000,
+    "timeWindow": 10
+  }
+]

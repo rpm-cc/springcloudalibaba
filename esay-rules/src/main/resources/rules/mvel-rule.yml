@@ -1,0 +1,6 @@
+name: equal
+description: if it rains then take an umbrella
+condition: rain == true
+prority: 1
+actions:
+  - System.out.println("It rains, take an umbrella!");

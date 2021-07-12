@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qixin-archive-service
+  namespace: default
+  labels:
+    app: chatrecord
+spec :
+  type: NodePort
+  ports:
+  - port: 8080
+    nodePort: 30002
+  selector:
+     app: chatrecord
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatrecord
+  labels:
+    app: chatrecord
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: chatrecord
+  template:
+    metadata:
+      labels:
+        app: chatrecord
+    spec:
+      containers:
+      - name: chatrecord
+        image: qixin/chatrecord
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

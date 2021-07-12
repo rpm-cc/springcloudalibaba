@@ -1,0 +1,32 @@
+{
+  "groups": [
+    {
+      "name": "rpm.demo.coding",
+      "type": "com.rpm.demo.config.RpmProperties",
+      "sourceType": "com.rpm.demo.config.RpmProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rpm.demo.coding.language",
+      "type": "java.lang.String",
+      "description": "which language to write",
+      "sourceType": "com.rpm.demo.config.RpmProperties",
+      "defaultValue": "Java"
+    },
+    {
+      "name": "rpm.demo.coding.years",
+      "type": "java.lang.Integer",
+      "description": "how many years work on",
+      "sourceType": "com.rpm.demo.config.RpmProperties",
+      "defaultValue": 13
+    },
+    {
+      "name": "rpm.demo.coding.level",
+      "type": "java.lang.String",
+      "description": "which level now ",
+      "sourceType": "com.rpm.demo.config.RpmProperties",
+      "defaultValue": "高级开发"
+    }
+  ]
+}

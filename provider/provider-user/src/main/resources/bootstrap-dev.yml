@@ -1,0 +1,15 @@
+server:
+  port: 8082
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 83a529c8-8691-4632-b849-0b187148f240
+        group: springcloudalibaba
+      config:
+        group: springcloudalibaba
+        server-addr: localhost:8848
+        prefix: ${spring.application.name}
+        file-extension: yaml
+        namespace: 83a529c8-8691-4632-b849-0b187148f240

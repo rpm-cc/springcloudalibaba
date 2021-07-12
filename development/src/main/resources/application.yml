@@ -1,0 +1,28 @@
+
+server:
+  port: 8084
+spring:
+  application:
+    name: development
+  kafka:
+    # 指定kafka server的地址，集群配多个，中间，逗号隔开
+    bootstrap-servers: "127.0.0.1:9092"
+    consumer:
+      group-id: ${spring.application.name}
+    #-----product 生产者参数-----
+    # 指定消息key和消息体的编解码方式
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+rpm:
+  demo:
+    coding:
+      language: JAVA
+      years: 13
+      level: 高级开发
+
+content:
+   - item:
+      site: www.baidu.com
+   - item:
+      site: www.taobao.com

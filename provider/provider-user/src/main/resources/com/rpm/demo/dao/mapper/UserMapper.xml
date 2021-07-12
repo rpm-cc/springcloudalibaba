@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rpm.demo.dao.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.rpm.demo.dao.domain.UserInfo">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <id column="user_sex" jdbcType="VARCHAR" property="userSex"/>
+        <id column="order_num" jdbcType="INTEGER" property="orderNum"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        user_id,user_name,user_sex,order_num
+    </sql>
+    <update id="orderPlus" parameterType="integer">
+        update  user_info set order_num = order_num+1 where user_id=#{userId};
+    </update>
+</mapper>

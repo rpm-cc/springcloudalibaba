@@ -1,0 +1,51 @@
+flow:
+  works:
+    #接口。标记出要调用的接口名称/url
+    - work:
+        className:
+        priority: 1
+        type: request
+        name: request
+        urls:
+          - www.baidu.com
+          - www.sina.com
+        cache: false
+    # 评分卡，根据评分卡可以获取到评分卡的配置
+    - work:
+        className:
+        priority: 2
+        type: scoreCard
+        name: productinfo
+        cardCode: CI00001
+        cache: false
+    - work:
+        className:
+        priority: 3
+        type: scoreCard
+        name: productStruct
+        cartdCode: CS00001
+        cache: false
+    - work:
+        className:
+        priority: 4
+        type: scoreCard
+        name: manager
+        cartdCode: CM00001
+        cache: false
+    #计算结果 也可以走规则引擎，给出得分情况 可以是active rule
+    - work:
+        className:
+        priority: 6
+        type: scoreResult
+        name: scoreResult
+        method: simple/weight
+        cache: false
+    # 映射匹配  此处最后走规则引擎。 最后处理动作
+    - work:
+        className:
+        priority: 7
+        type: levelResult
+        name: levelResult
+        ruleCode: R00001
+
+

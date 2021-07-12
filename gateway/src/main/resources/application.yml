@@ -1,0 +1,15 @@
+server:
+  port: 9000
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: demo-path
+          uri: http://localhost:8084
+          predicates:
+            - Path=/example/**
+        - id: demo-cookie
+          uri: http://localhost:8084
+          predicates:
+            - Cookie=mycookie,mycookievalue

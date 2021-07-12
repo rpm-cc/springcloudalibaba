@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rpm.demo.dao.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.rpm.demo.dao.domain.OrderInfo">
+        <id column="order_id" jdbcType="INTEGER" property="orderId"/>
+        <id column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <id column="order_descr" jdbcType="VARCHAR" property="orderDescr"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+       order_id,user_id,order_descr
+    </sql>
+    <insert id="insert" parameterType="com.rpm.demo.dao.domain.OrderInfo">
+        insert into order_info(user_id,order_descr)  values(#{userId},#{orderDescr});
+    </insert>
+</mapper>

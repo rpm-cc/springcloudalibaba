@@ -1,0 +1,34 @@
+data:
+  name: provider-order
+spring:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/order
+      username: root
+      password: 123456
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  tx-service-group: provider-order-seata-com.rpm.demo.service-group
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: localhost:8848
+      group : SEATA_GROUP
+      namespace: 8b53ce4d-d3d3-452f-8a05-a7655a9b372f
+  config:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+      namespace: 8b53ce4d-d3d3-452f-8a05-a7655a9b372f
+  service:
+    vgroup-mapping:
+      provider-order-seata-service-group: default
+    disable-global-transaction: false
+    client:
+      rm:
+        report-success-enable: false   

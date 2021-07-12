@@ -1,0 +1,11 @@
+server:
+  port: 8082
+spring:
+  cloud:
+    nacos:
+      config:
+        group: project-initializr
+        server-addr: localhost:8848
+        prefix: ${spring.application.name}
+        file-extension: yaml
+        namespace: c95a5f47-6485-4435-9f93-d7b752b18664

@@ -1,0 +1,47 @@
+spring:
+  cloud:
+    sentinel: 
+      transport:
+        port: 8719
+        dashboard:  localhost:8088
+      datasource:
+        flow:
+          nacos:
+            server-addr: localhost:8848 #nacos服务器地址
+            dataId: ${spring.application.name}-flow-rules.json
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: flow
+            namespace: 83a529c8-8691-4632-b849-0b187148f240 #
+        degrade:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-degrade-rules.json
+            groupId: SENTINEL_GROUP
+            rule-type: degrade
+            data-type: json
+            namespace: 83a529c8-8691-4632-b849-0b187148f240 #
+        system:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-system-rules.json
+            groupId: SENTINEL_GROUP
+            rule-type: system
+            data-type: json
+            namespace: 83a529c8-8691-4632-b849-0b187148f240 #
+        authority:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-authority-rules.json
+            groupId: SENTINEL_GROUP
+            rule-type: authority
+            data-type: json
+            namespace: 83a529c8-8691-4632-b849-0b187148f240 #
+        param-flow:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-param-flow-rules.json
+            groupId: SENTINEL_GROUP
+            rule-type: param-flow
+            data-type: json
+            namespace: 83a529c8-8691-4632-b849-0b187148f240 #  
