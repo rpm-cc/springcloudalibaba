@@ -30,6 +30,7 @@ public class RuleExample {
 //         active();
 //         condition();
 
+
     }
 
     public static void mvelRule() throws Exception{

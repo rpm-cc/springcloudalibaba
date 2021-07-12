@@ -1,4 +1,4 @@
-package com.rpm.demo.rules;
+package com.rpm.demo;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
