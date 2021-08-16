@@ -63,7 +63,7 @@ public class RuleExample {
     }
 
     /**
-     * 第一个条件满足就停止，类似与switch case
+     * 第一个条件满足就停止，类似于switch case
      * @throws Exception
      */
     public static void active() throws Exception {
