@@ -26,6 +26,7 @@
         <module>gateway</module>
         <module>project-initializr</module>
         <module>esay-rules</module>
+        <module>Temp</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
