@@ -20,4 +20,6 @@ public class WeWorkResponse {
      * 返回码提示语
      */
     protected String errmsg;
+
+
 }

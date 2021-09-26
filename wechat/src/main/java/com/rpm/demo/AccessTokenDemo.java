@@ -1,8 +1,8 @@
 package com.rpm.demo;
 
 
-import com.tencent.wework.api.WeWorkAPI;
 import com.tencent.wework.api.domain.AccessToken;
+import com.tencent.wework.api.service.AccessTokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @Slf4j
-public class AccessTokenDemo {
+public class AccessTokenDemo implements AccessTokenService {
     @Autowired
     RedisTemplate<String,String> redisTemplate;
 
@@ -30,6 +30,7 @@ public class AccessTokenDemo {
      * @param corpsecret
      * @return
      */
+    @Override
     public  String getAccessToken(String corpid,String corpsecret){
         String accessTokenKey  = "AccessToken:"+corpid+":"+corpsecret;
         String accessToken = redisTemplate.opsForValue().get(accessTokenKey);
@@ -40,7 +41,7 @@ public class AccessTokenDemo {
            }
         }
         RestTemplate restTemplate = new RestTemplate();
-        final ResponseEntity<AccessToken> responseEntity = restTemplate.getForEntity(WeWorkAPI.GETTOKEN, AccessToken.class, corpid,corpsecret);
+        final ResponseEntity<AccessToken> responseEntity = restTemplate.getForEntity(API_URI, AccessToken.class, corpid,corpsecret);
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
             log.error("获取失败");
             return null;
