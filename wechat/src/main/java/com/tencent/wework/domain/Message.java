@@ -2,6 +2,10 @@ package com.tencent.wework.domain;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
+import org.springframework.data.annotation.Id;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Arrays;
 
@@ -10,10 +14,12 @@ import java.util.Arrays;
  * @Date 2021/5/6
  * @Version 1.0
  */
+@Document(collection = "chatrecord")
 public class Message {
     /**
      * 消息id，消息的唯一标识，企业可以使用此字段进行消息去重。String类型
      */
+    @MongoId
     private String msgid;
     /**
      * 消息动作，目前有send(发送消息)/recall(撤回消息)/switch(切换企业日志)三种类型。String类型

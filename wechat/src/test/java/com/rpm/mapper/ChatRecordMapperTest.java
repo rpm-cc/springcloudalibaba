@@ -48,4 +48,14 @@ public class ChatRecordMapperTest {
 
         System.out.println(messageList);
     }
+
+
+    @Test
+    public void mongoSelectById(){
+        //Message message = template.findOne(new Query(new Criteria("_id").is("32132654028142845_1621214808_external")),Message.class,"chatrecord");
+        Message message = template.findOne(new Query(new Criteria("msgid").is("32132654028142845_1621214808_external")),Message.class,"chatrecord");
+        System.out.println(message);
+
+
+    }
 }

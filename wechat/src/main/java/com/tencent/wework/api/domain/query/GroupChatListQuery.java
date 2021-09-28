@@ -1,5 +1,6 @@
 package com.tencent.wework.api.domain.query;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,13 +26,15 @@ public class GroupChatListQuery implements Serializable {
      *
      * 默认为0 有默认值，定义为int
      */
-    private int status_filter;
+    @JSONField(name = "status_filter")
+    private int statusFilter;
     /**
      * 群主过滤。
      * 如果不填，表示获取应用可见范围内全部群主的数据
      * （但是不建议这么用，如果可见范围人数超过1000人，为了防止数据包过大，会报错 81017）
      */
-    private OwnerFilter owner_filter;
+    @JSONField(name = "owner_filter")
+    private OwnerFilter ownerFilter;
     /**
      * 用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填
      */
@@ -61,10 +64,10 @@ public class GroupChatListQuery implements Serializable {
         }
 
        public Builder addUserid(String userid) {
-            OwnerFilter filter = query.getOwner_filter();
+            OwnerFilter filter = query.getOwnerFilter();
             if (filter == null) {
                 filter = new OwnerFilter();
-                query.setOwner_filter(filter);
+                query.setOwnerFilter(filter);
             }
             List<String> list = filter.getUserid_list();
             if (list == null) {
@@ -86,7 +89,7 @@ public class GroupChatListQuery implements Serializable {
         }
 
        public Builder setStatusFilter(int status) {
-            query.setStatus_filter(status);
+            query.setStatusFilter(status);
             return this;
         }
 

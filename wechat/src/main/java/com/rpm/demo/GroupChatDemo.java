@@ -27,7 +27,7 @@ public class GroupChatDemo implements GroupChatService {
     AccessTokenDemo accessToken;
 
     @Override
-    public GroupChatList getGroupchatList(String corpid, String secrect , GroupChatListQuery query) {
+    public GroupChatList getGroupchatList(String corpid, String secrect, GroupChatListQuery query) {
         RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<GroupChatList> responseEntity = restTemplate.postForEntity(
                 GROUPCHAT_LIST,
@@ -35,8 +35,8 @@ public class GroupChatDemo implements GroupChatService {
                 GroupChatList.class,
                 accessToken.getAccessToken(corpid, secrect));
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.error("获取失败");
-
+            log.error("网路错误：{}，获取失败", responseEntity.getStatusCode());
+            return null;
         }
         GroupChatList groupChatList = responseEntity.getBody();
         if (groupChatList.getErrcode() != 0) {
@@ -48,7 +48,7 @@ public class GroupChatDemo implements GroupChatService {
     }
 
     @Override
-    public GroupChat getGrroupChat(String corpid, String secrect , GroupChatQuery query){
+    public GroupChat getGrroupChat(String corpid, String secrect, GroupChatQuery query) {
         RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<GroupChat> responseEntity = restTemplate.postForEntity(
                 GROUPCHAT,
@@ -56,8 +56,8 @@ public class GroupChatDemo implements GroupChatService {
                 GroupChat.class,
                 accessToken.getAccessToken(corpid, secrect));
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.error("获取失败");
-
+            log.error("网路错误：{}，获取失败",responseEntity.getStatusCode());
+            return null;
         }
         GroupChat groupChat = responseEntity.getBody();
         if (groupChat.getErrcode() != 0) {
@@ -73,11 +73,12 @@ public class GroupChatDemo implements GroupChatService {
         RestTemplate restTemplate = new RestTemplate();
         final ResponseEntity<ChatId> responseEntity = restTemplate.postForEntity(
                 OPENGID_TO_CHATID,
-                "{\"opengid\":\""+opengid+"\"}",
+                "{\"opengid\":\"" + opengid + "\"}",
                 ChatId.class,
                 accessToken.getAccessToken(corpid, secrect));
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.error("获取失败");
+            log.error("网路错误：{}，获取失败",responseEntity.getStatusCode());
+            return null;
         }
         ChatId chatId = responseEntity.getBody();
         if (chatId.getErrcode() != 0) {

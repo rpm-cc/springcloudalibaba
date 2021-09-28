@@ -14,8 +14,24 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Map<String,Object> map  = new HashMap<>();
+      String a  = "11111";
+      String b = "15111";
+        System.out.println(safeEqual(a,b));
+    }
 
-       Double d =  (Double)map.get("key");
+
+   static boolean safeEqual(String a, String b) {
+        if (a == null || b == null) {
+            return false;
+        }
+        if (a.length() != b.length()) {
+            return false;
+        }
+        int equal = 0;
+        for (int i = 0; i < a.length(); i++) {
+            int c = a.charAt(i) ^ b.charAt(i);
+            equal |= c;
+        }
+        return equal == 0;
     }
 }

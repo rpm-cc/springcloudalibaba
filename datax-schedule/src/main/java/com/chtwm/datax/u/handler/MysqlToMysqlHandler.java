@@ -84,7 +84,7 @@ public class MysqlToMysqlHandler  {
     /**
      * 临时调试调度。Xxjob 在开发过程中不方便 。直接使用scheduled 代替来进行调试
      */
-    //@Scheduled(initialDelay = 5000,fixedRate = 60000)
+    @Scheduled(initialDelay = 5000,fixedRate = 60000)
     public void localTest(){
         try {
             execute();

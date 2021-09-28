@@ -40,20 +40,30 @@ public class AccessTokenDemo implements AccessTokenService {
                return accessToken;
            }
         }
-        RestTemplate restTemplate = new RestTemplate();
-        final ResponseEntity<AccessToken> responseEntity = restTemplate.getForEntity(API_URI, AccessToken.class, corpid,corpsecret);
-        if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-            log.error("获取失败");
-            return null;
+        if (redisTemplate.opsForValue().setIfAbsent("lock"+accessTokenKey,"lock")) {
+            RestTemplate restTemplate = new RestTemplate();
+            try {
+                final ResponseEntity<AccessToken> responseEntity = restTemplate.getForEntity(API_URI, AccessToken.class, corpid, corpsecret);
+                if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                    log.error("网路错误：{}，获取失败", responseEntity.getStatusCode());
+                    return null;
+                }
+                AccessToken token = responseEntity.getBody();
+                if (token.getErrcode() != 0) {
+                    log.error("AccessToken获取失败 errorCode:{} errorMsg:{}", token.getErrcode(), token.getErrmsg());
+                    return null;
+                }
+                accessToken = token.getAccessToken();
+                log.info("accesstoken:{}", accessToken);
+                redisTemplate.opsForValue().set(accessTokenKey, accessToken, 7200, TimeUnit.SECONDS);
+            }catch (Exception e ){
+
+            }finally {
+                redisTemplate.delete("lock"+accessTokenKey);
+            }
+            return accessToken;
+
         }
-        AccessToken token = responseEntity.getBody();
-        if (token.getErrcode() != 0) {
-            log.error("AccessToken获取失败 errorCode:{} errorMsg:{}",token.getErrcode(),token.getErrmsg());
-            return null;
-        }
-        accessToken = token.getAccess_token();
-        log.info("accesstoken:{}",accessToken);
-        redisTemplate.opsForValue().set(accessTokenKey,accessToken,7200,TimeUnit.SECONDS);
         return accessToken;
     }
 
