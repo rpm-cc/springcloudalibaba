@@ -1,5 +1,6 @@
 package com.tencent.wework.api.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,14 +19,16 @@ public class GroupChat extends WeWorkResponse implements Serializable {
     /**
      * 客户群详情
      */
-    private GroupChatRoom group_chat;
+    @JSONField(name = "group_chat")
+    private GroupChatRoom groupChat;
 
     @Data
     public static class GroupChatRoom{
         /**
          * 客户群ID
          */
-        private String chat_id;
+        @JSONField(name = "chat_id")
+        private String chatId;
         /**
          * 群名
          */
@@ -37,7 +40,8 @@ public class GroupChat extends WeWorkResponse implements Serializable {
         /**
          * 	群的创建时间  秒
          */
-        private Long create_time;
+        @JSONField(name = "create_time")
+        private Long createTime;
         /**
          * 群公告
          */
@@ -45,11 +49,13 @@ public class GroupChat extends WeWorkResponse implements Serializable {
         /**
          *群成员列表
          */
-        private List<Member> member_list;
+        @JSONField(name = "member_list")
+        private List<Member> memberList;
         /**
-         *
+         * 一个群中的管理员
          */
-        private List<RoomAdmin> admin_list;
+        @JSONField(name = "admin_list")
+        private List<RoomAdmin> adminList;
 
     }
     @Data
@@ -74,14 +80,16 @@ public class GroupChat extends WeWorkResponse implements Serializable {
         /**
          * 入群时间  秒
          */
-        private Long join_time;
+        @JSONField(name = "join_time")
+        private Long joinTime;
         /**
          *入群方式。
          * 1 - 由群成员邀请入群（直接邀请入群）
          * 2 - 由群成员邀请入群（通过邀请链接入群）
          * 3 - 通过扫描群二维码入群
          */
-        private Long join_scene;
+        @JSONField(name = "join_scene")
+        private Long joinScene;
         /**
          * 邀请者。目前仅当是由本企业内部成员邀请入群时会返回该值
          */
@@ -89,7 +97,8 @@ public class GroupChat extends WeWorkResponse implements Serializable {
         /**
          * 在群里的昵称
          */
-        private String group_nickname;
+        @JSONField(name = "group_nickname")
+        private String groupNickname;
         /**
          * 名字。仅当 need_name = 1 时返回
          * 如果是微信用户，则返回其在微信中设置的名字

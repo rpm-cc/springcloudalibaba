@@ -1,5 +1,7 @@
 package com.tencent.wework.api.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -10,5 +12,9 @@ import java.util.List;
  */
 public class ExternalcontactList extends WeWorkResponse{
 
-    List<String> external_userid;
+    /**
+     *  获取客户列表返回的客户的id集合
+     */
+    @JSONField(name = "external_userid")
+    List<String> externalUserid;
 }

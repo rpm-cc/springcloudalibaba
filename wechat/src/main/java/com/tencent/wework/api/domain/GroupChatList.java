@@ -1,5 +1,6 @@
 package com.tencent.wework.api.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,11 +18,13 @@ public class GroupChatList extends WeWorkResponse implements Serializable {
     /**
      * 对返回码的文本描述内容
      */
-    private List<Chat> group_chat_list;
+    @JSONField(name = "group_chat_list")
+    private List<Chat> groupChatList;
     /**
      * 分页游标，下次请求时填写以获取之后分页的记录。如果该字段返回空则表示已没有更多数据
      */
-    private String next_cursor;
+    @JSONField(name = "next_cursor")
+    private String nextCursor;
 
     @Data
     public static class Chat implements Serializable{
@@ -29,7 +32,8 @@ public class GroupChatList extends WeWorkResponse implements Serializable {
         /**
          * 客户群ID
          */
-        private String chat_id;
+        @JSONField(name = "chat_id")
+        private String chatId;
         /**
          * 客户群跟进状态。
          * 0 - 跟进人正常

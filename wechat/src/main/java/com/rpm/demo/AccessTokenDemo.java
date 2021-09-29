@@ -1,12 +1,12 @@
 package com.rpm.demo;
 
 
+import com.rpm.wechat.util.WeWorkRestUtil;
 import com.tencent.wework.api.domain.AccessToken;
 import com.tencent.wework.api.service.AccessTokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 public class AccessTokenDemo implements AccessTokenService {
     @Autowired
     RedisTemplate<String,String> redisTemplate;
+    @Autowired
+    WeWorkRestUtil weWorkRestUtil;
 
     /**
      * get accesstoken
@@ -41,18 +43,9 @@ public class AccessTokenDemo implements AccessTokenService {
            }
         }
         if (redisTemplate.opsForValue().setIfAbsent("lock"+accessTokenKey,"lock")) {
-            RestTemplate restTemplate = new RestTemplate();
+
             try {
-                final ResponseEntity<AccessToken> responseEntity = restTemplate.getForEntity(API_URI, AccessToken.class, corpid, corpsecret);
-                if (!responseEntity.getStatusCode().is2xxSuccessful()) {
-                    log.error("网路错误：{}，获取失败", responseEntity.getStatusCode());
-                    return null;
-                }
-                AccessToken token = responseEntity.getBody();
-                if (token.getErrcode() != 0) {
-                    log.error("AccessToken获取失败 errorCode:{} errorMsg:{}", token.getErrcode(), token.getErrmsg());
-                    return null;
-                }
+                AccessToken token  = weWorkRestUtil.get(AccessToken.class,API_URI,corpid,corpsecret);
                 accessToken = token.getAccessToken();
                 log.info("accesstoken:{}", accessToken);
                 redisTemplate.opsForValue().set(accessTokenKey, accessToken, 7200, TimeUnit.SECONDS);

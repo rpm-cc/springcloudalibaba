@@ -1,5 +1,6 @@
 package com.tencent.wework.api.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 /**
@@ -10,5 +11,9 @@ import lombok.Data;
  */
 @Data
 public class ChatId extends WeWorkResponse {
-    private String chat_id;
+    /**
+     * opengidToChatid  转换时获取到的客户群ID
+     */
+    @JSONField(name = "chat_id")
+    private String chatId;
 }

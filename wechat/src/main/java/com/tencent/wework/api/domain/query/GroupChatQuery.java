@@ -3,6 +3,7 @@ package com.tencent.wework.api.domain.query;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import java.util.List;
  * @description:
  */
 @Data
-public class GroupChatQuery {
+public class GroupChatQuery implements Query, Serializable {
+    private static final long serialVersionUID = 8913618304429099690L;
     /**
      * 客户群ID
      */

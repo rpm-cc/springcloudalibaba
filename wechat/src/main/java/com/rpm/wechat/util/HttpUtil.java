@@ -155,22 +155,4 @@ public class HttpUtil {
         }
         return "success";
     }
-
-
-    public static void main(String[] args) {
-        String url = "http://localhost:8080/api/hde/dict/listDict";
-        Map<String, Object> params = new HashMap<>();
-        params.put("pageNum", 1);
-        params.put("pageSize", 10);
-        RestTemplate template = new RestTemplate();
-        List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
-        interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json"));
-        template.setInterceptors(interceptors);
-        final ResponseEntity<String> entity = template.postForEntity(url, JSON.toJSONString(params), String.class);
-        String response = entity.getBody();
-        JSONObject object = JSON.parseObject(response);
-        Object obj = object.get("pageInfo");;
-    }
-
-
 }

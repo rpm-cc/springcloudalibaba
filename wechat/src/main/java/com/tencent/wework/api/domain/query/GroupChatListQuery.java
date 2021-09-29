@@ -14,7 +14,7 @@ import java.util.List;
  * @description:
  */
 @Data
-public class GroupChatListQuery implements Serializable {
+public class GroupChatListQuery implements Query, Serializable {
 
     private static final long serialVersionUID = 1348984534736547497L;
     /**
@@ -49,7 +49,8 @@ public class GroupChatListQuery implements Serializable {
         /**
          * 用户ID列表。最多100个
          */
-        List<String> userid_list;
+        @JSONField(name = "userid_list")
+        List<String> useridList;
     }
 
     public static Builder builder() {
@@ -69,10 +70,10 @@ public class GroupChatListQuery implements Serializable {
                 filter = new OwnerFilter();
                 query.setOwnerFilter(filter);
             }
-            List<String> list = filter.getUserid_list();
+            List<String> list = filter.getUseridList();
             if (list == null) {
                 list = new ArrayList<>();
-                filter.setUserid_list(list);
+                filter.setUseridList(list);
             }
             list.add(userid);
             return this;

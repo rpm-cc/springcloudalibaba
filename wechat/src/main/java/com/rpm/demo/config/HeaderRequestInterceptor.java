@@ -1,4 +1,4 @@
-package com.rpm.wechat.util;
+package com.rpm.demo.config;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

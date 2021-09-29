@@ -1,4 +1,6 @@
 package com.tencent.wework.api.domain;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 
@@ -15,20 +17,13 @@ public class AccessToken extends WeWorkResponse {
     /**
      * 获取到的凭证，最长为512字节
      */
-    private String access_token;
+    @JSONField(name = "access_token")
+    private String accessToken;
 
     /**
      * 凭证的有效时间（秒）
      */
-    private long expires_in;
+    @JSONField(name = "expires_in")
+    private long expiresIn;
 
-    @Override
-    public String toString() {
-        return "AppTokenResult{" +
-                "access_token='" + access_token + '\'' +
-                ", expires_in=" + expires_in +
-                ", errcode=" + errcode +
-                ", errmsg='" + errmsg + '\'' +
-                '}';
-    }
 }
