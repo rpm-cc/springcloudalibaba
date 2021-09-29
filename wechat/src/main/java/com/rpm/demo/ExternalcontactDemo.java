@@ -18,11 +18,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ExternalcontactDemo implements ExternalcontactService {
 
-    @Autowired
     WeWorkRestUtil restUtil;
+    @Autowired
+    ExternalcontactDemo(WeWorkRestUtil restUtil){
+        this.restUtil  = restUtil;
+    }
     @Override
     public ExternalcontactList list(String corpid,String secrect,String userid) {
-
         ExternalcontactList contactList = restUtil.get(ExternalcontactList.class,CONTACT_LIST,corpid,secrect,userid);
         log.info("ExternalcontactList:{}", JSON.toJSONString(contactList));
         return contactList;

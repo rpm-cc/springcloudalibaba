@@ -28,7 +28,7 @@ public class RestTemplateConfig {
 
 
     @Bean
-    public RestTemplate restTemplate(AccessTokenInterceptor accessTokenInterceptor) {
+    public RestTemplate restTemplate() {
 
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         //设置超时时间 。
@@ -79,13 +79,9 @@ public class RestTemplateConfig {
         //请求头设置
         List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
         interceptors.add(new HeaderRequestInterceptor("Content-Type", "application/json"));
-        interceptors.add(accessTokenInterceptor);
+
         restTemplate.setInterceptors(interceptors);
         return restTemplate;
     }
 
-    @Bean
-    public AccessTokenInterceptor accessTokenInterceptor(){
-        return new AccessTokenInterceptor();
-    }
 }

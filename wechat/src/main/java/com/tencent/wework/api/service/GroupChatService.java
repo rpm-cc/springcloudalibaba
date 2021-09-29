@@ -11,7 +11,7 @@ import com.tencent.wework.api.domain.query.GroupChatQuery;
  * @version: 1.0
  * @description:
  */
-public interface GroupChatService {
+public interface GroupChatService{
 
     /**
      *  <pre>

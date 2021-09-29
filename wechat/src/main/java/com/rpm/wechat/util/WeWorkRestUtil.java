@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.tencent.wework.api.domain.AccessToken;
 import com.tencent.wework.api.domain.WeWorkResponse;
 import com.tencent.wework.api.domain.query.Query;
-import com.tencent.wework.api.service.AccessTokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,6 +23,15 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class WeWorkRestUtil {
+    /**
+     * <pre>
+     * 获取accessToken
+     * 请求方式 GET(https)
+     * 详见：https://open.work.weixin.qq.com/api/doc/10013#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%8E%B7%E5%8F%96access_token
+     * </pre>
+     */
+   private static final String API_URI = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}";
+
     @Autowired
     RestTemplate restTemplate;
     @Autowired
@@ -47,7 +55,7 @@ public class WeWorkRestUtil {
         return getT(responseEntity);
     }
 
-    public <T extends WeWorkResponse> T post(Class<T> _class, String url, String corpid, String corpsecret, Map<String,Object> data) {
+    public <T extends WeWorkResponse> T post(Class<T> _class, String url, String corpid, String corpsecret, Map<String, Object> data) {
         final ResponseEntity<T> responseEntity = restTemplate.postForEntity(url,
                 JSON.toJSONString(data),
                 _class,
@@ -55,7 +63,7 @@ public class WeWorkRestUtil {
         return getT(responseEntity);
     }
 
-    private <T extends WeWorkResponse> T getT(ResponseEntity<T> responseEntity){
+    private <T extends WeWorkResponse> T getT(ResponseEntity<T> responseEntity) {
         if (!responseEntity.getStatusCode().is2xxSuccessful()) {
             log.error("网路错误：{}，获取失败", responseEntity.getStatusCode());
             return null;
@@ -67,6 +75,7 @@ public class WeWorkRestUtil {
         }
         return t;
     }
+
     private String accessToken(String corpid, String corpsecret) {
         String accessTokenKey = "AccessToken:" + corpid + ":" + corpsecret;
         String accessToken = redisTemplate.opsForValue().get(accessTokenKey);
@@ -77,9 +86,8 @@ public class WeWorkRestUtil {
             }
         }
         if (redisTemplate.opsForValue().setIfAbsent("lock" + accessTokenKey, "lock")) {
-
             try {
-                AccessToken token = this.get(AccessToken.class, AccessTokenService.API_URI, corpid, corpsecret);
+                AccessToken token = this.get(AccessToken.class, API_URI, corpid, corpsecret);
                 accessToken = token.getAccessToken();
                 log.info("accesstoken:{}", accessToken);
                 redisTemplate.opsForValue().set(accessTokenKey, accessToken, 7200, TimeUnit.SECONDS);
