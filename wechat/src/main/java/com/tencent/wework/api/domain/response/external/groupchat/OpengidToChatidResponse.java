@@ -1,6 +1,7 @@
-package com.tencent.wework.api.domain;
+package com.tencent.wework.api.domain.response.external.groupchat;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.tencent.wework.api.domain.response.WeWorkResponse;
 import lombok.Data;
 
 /**
@@ -10,7 +11,7 @@ import lombok.Data;
  * @description:
  */
 @Data
-public class ChatId extends WeWorkResponse {
+public class OpengidToChatidResponse extends WeWorkResponse {
     /**
      * opengidToChatid  转换时获取到的客户群ID
      */

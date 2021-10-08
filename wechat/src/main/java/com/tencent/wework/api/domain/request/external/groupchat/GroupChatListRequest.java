@@ -1,6 +1,7 @@
-package com.tencent.wework.api.domain.query;
+package com.tencent.wework.api.domain.request.external.groupchat;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.tencent.wework.api.domain.request.WeWorkRequest;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import java.util.List;
  * @description:
  */
 @Data
-public class GroupChatListQuery implements Query, Serializable {
+public class GroupChatListRequest implements WeWorkRequest, Serializable {
 
     private static final long serialVersionUID = 1348984534736547497L;
     /**
@@ -58,17 +59,17 @@ public class GroupChatListQuery implements Query, Serializable {
     }
 
     public static class Builder {
-        GroupChatListQuery query;
+        GroupChatListRequest request;
 
         Builder() {
-            query = new GroupChatListQuery();
+            request = new GroupChatListRequest();
         }
 
-       public Builder addUserid(String userid) {
-            OwnerFilter filter = query.getOwnerFilter();
+       public Builder userid(String userid) {
+            OwnerFilter filter = request.getOwnerFilter();
             if (filter == null) {
                 filter = new OwnerFilter();
-                query.setOwnerFilter(filter);
+                request.setOwnerFilter(filter);
             }
             List<String> list = filter.getUseridList();
             if (list == null) {
@@ -79,23 +80,23 @@ public class GroupChatListQuery implements Query, Serializable {
             return this;
         }
 
-       public Builder setLimit(int limit) {
-            query.setLimit(limit);
+       public Builder limit(int limit) {
+           request.setLimit(limit);
             return this;
         }
 
-       public Builder setCursor(String cursor) {
-            query.setCursor(cursor);
+       public Builder cursor(String cursor) {
+           request.setCursor(cursor);
             return this;
         }
 
-       public Builder setStatusFilter(int status) {
-            query.setStatusFilter(status);
+       public Builder statusFilter(int status) {
+           request.setStatusFilter(status);
             return this;
         }
 
-       public GroupChatListQuery build() {
-            return query;
+       public GroupChatListRequest build() {
+            return request;
         }
 
     }

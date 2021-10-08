@@ -1,9 +1,10 @@
 package com.rpm.wechat.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tencent.wework.api.domain.AccessToken;
-import com.tencent.wework.api.domain.WeWorkResponse;
-import com.tencent.wework.api.domain.query.Query;
+import com.tencent.wework.api.domain.request.WeWorkRequest;
+import com.tencent.wework.api.domain.response.WeWorkResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,10 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 企业微信服务起api接口调用工具类 。
+ * 支持 get post 方式调用。
+ *
  * @author: Piming Ren
  * @date: 2021/9/29 9:41
  * @version: 1.0
@@ -30,26 +36,63 @@ public class WeWorkRestUtil {
      * 详见：https://open.work.weixin.qq.com/api/doc/10013#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E8%8E%B7%E5%8F%96access_token
      * </pre>
      */
-   private static final String API_URI = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}";
+    private static final String API_URI = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}";
 
     @Autowired
     RestTemplate restTemplate;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
 
+    /**
+     * 不需要accesstoken
+     *
+     * @param _class
+     * @param url
+     * @param corpid
+     * @param corpsecret
+     * @param <T>
+     * @return
+     */
     public <T extends WeWorkResponse> T get(Class<T> _class, String url, String corpid, String corpsecret) {
         final ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, _class, corpid, corpsecret);
         return getT(responseEntity);
     }
 
-    public <T extends WeWorkResponse, E> T get(Class<T> _class, String url, String corpid, String corpsecret, E data) {
-        final ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, _class, accessToken(corpid, corpsecret), data);
+    public <T extends WeWorkResponse> T get(Class<T> _class, String url, String corpid, String corpsecret, Object... uriVariables) {
+        final ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, _class, accessToken(corpid, corpsecret), uriVariables);
         return getT(responseEntity);
     }
 
-    public <T extends WeWorkResponse, E extends Query> T post(Class<T> _class, String url, String corpid, String corpsecret, E data) {
+    public <T extends WeWorkResponse, E extends WeWorkRequest> T get(Class<T> _class, String url, String corpid, String corpsecret, E data) {
+        Class cls = data.getClass();
+        Field[] fields = cls.getDeclaredFields();
+        Map<String, Object> uriVariables = new HashMap<>();
+        for (int i = 0; i < fields.length; i++) {
+            try {
+                Field field = fields[i];
+                field.setAccessible(true);
+                String name = field.getName();
+                //获取属性值
+                Object value = null;
+                value = field.get(data);
+                if (value != null) {
+                    uriVariables.put(name, value);
+                }
+            } catch (IllegalAccessException e) {
+                log.error("{}请求参数错误",url);
+            }
+        }
+        uriVariables.put("access_token", accessToken(corpid, corpsecret));
+        final ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, _class, uriVariables);
+        return getT(responseEntity);
+    }
+
+    public <T extends WeWorkResponse, E extends WeWorkRequest> T post(Class<T> _class, String url, String corpid, String corpsecret, E data) {
+
+        String body = JSON.toJSONString(data);
+        JSONObject object  = post(url,corpid,corpsecret,body);
         final ResponseEntity<T> responseEntity = restTemplate.postForEntity(url,
-                JSON.toJSONString(data),
+                body,
                 _class,
                 accessToken(corpid, corpsecret));
         return getT(responseEntity);
@@ -61,6 +104,14 @@ public class WeWorkRestUtil {
                 _class,
                 accessToken(corpid, corpsecret));
         return getT(responseEntity);
+    }
+
+    public JSONObject post(String url, String corpid, String corpsecret, String json) {
+        final ResponseEntity<JSONObject> responseEntity = restTemplate.postForEntity(url,
+                json,
+                JSONObject.class,
+                accessToken(corpid, corpsecret));
+        return responseEntity.getBody();
     }
 
     private <T extends WeWorkResponse> T getT(ResponseEntity<T> responseEntity) {
@@ -89,10 +140,10 @@ public class WeWorkRestUtil {
             try {
                 AccessToken token = this.get(AccessToken.class, API_URI, corpid, corpsecret);
                 accessToken = token.getAccessToken();
-                log.info("accesstoken:{}", accessToken);
+                log.info("AccessToken:{}", accessToken);
                 redisTemplate.opsForValue().set(accessTokenKey, accessToken, 7200, TimeUnit.SECONDS);
             } catch (Exception e) {
-
+                log.error("AccessToken 获取失败{}", e);
             } finally {
                 redisTemplate.delete("lock" + accessTokenKey);
             }

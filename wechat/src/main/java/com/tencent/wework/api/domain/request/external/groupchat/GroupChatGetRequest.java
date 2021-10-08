@@ -1,11 +1,10 @@
-package com.tencent.wework.api.domain.query;
+package com.tencent.wework.api.domain.request.external.groupchat;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.tencent.wework.api.domain.request.WeWorkRequest;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: Piming Ren
@@ -14,7 +13,7 @@ import java.util.List;
  * @description:
  */
 @Data
-public class GroupChatQuery implements Query, Serializable {
+public class GroupChatGetRequest implements WeWorkRequest, Serializable {
     private static final long serialVersionUID = 8913618304429099690L;
     /**
      * 客户群ID
@@ -27,28 +26,28 @@ public class GroupChatQuery implements Query, Serializable {
     @JSONField(name = "need_name")
     private Integer needName;
 
-    public static GroupChatQuery.Builder builder() {
-        return new GroupChatQuery.Builder();
+    public static GroupChatGetRequest.Builder builder() {
+        return new GroupChatGetRequest.Builder();
     }
 
     public static class Builder {
-        GroupChatQuery query;
+        GroupChatGetRequest request;
 
         Builder() {
-            query = new GroupChatQuery();
+            request = new GroupChatGetRequest();
         }
 
-        public GroupChatQuery.Builder setChatId(String chatId) {
-            query.setChatId(chatId);
+        public GroupChatGetRequest.Builder chatId(String chatId) {
+            request.setChatId(chatId);
             return this;
         }
 
-        public GroupChatQuery.Builder setNeedName(Integer needName) {
-            query.setNeedName(needName);
+        public GroupChatGetRequest.Builder needName(Integer needName) {
+            request.setNeedName(needName);
             return this;
         }
-        public GroupChatQuery build(){
-            return query;
+        public GroupChatGetRequest build(){
+            return request;
         }
 
     }

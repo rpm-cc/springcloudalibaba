@@ -1,6 +1,7 @@
-package com.tencent.wework.api.domain;
+package com.tencent.wework.api.domain.response.external.groupchat;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.tencent.wework.api.domain.response.WeWorkResponse;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.List;
  * @description:
  */
 @Data
-public class GroupChat extends WeWorkResponse implements Serializable {
+public class GroupChatGetResponse extends WeWorkResponse implements Serializable {
 
     private static final long serialVersionUID = 1246332723145909576L;
     /**

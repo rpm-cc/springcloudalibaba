@@ -1,6 +1,6 @@
 package com.tencent.wework.api.domain;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.tencent.wework.api.domain.response.WeWorkResponse;
 import lombok.Data;
 
 

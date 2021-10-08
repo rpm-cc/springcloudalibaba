@@ -1,4 +1,4 @@
-package com.tencent.wework.api.domain;
+package com.tencent.wework.api.domain.response;
 
 import lombok.Data;
 

@@ -2,17 +2,15 @@ package com.rpm.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.rpm.wechat.util.WeWorkRestUtil;
-import com.tencent.wework.api.domain.ChatId;
-import com.tencent.wework.api.domain.GroupChat;
-import com.tencent.wework.api.domain.GroupChatList;
-import com.tencent.wework.api.domain.query.GroupChatListQuery;
-import com.tencent.wework.api.domain.query.GroupChatQuery;
+import com.tencent.wework.api.domain.response.external.groupchat.OpengidToChatidResponse;
+import com.tencent.wework.api.domain.response.external.groupchat.GroupChatGetResponse;
+import com.tencent.wework.api.domain.response.external.groupchat.GroupChatListResponse;
+import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
+import com.tencent.wework.api.domain.request.external.groupchat.GroupChatGetRequest;
 import com.tencent.wework.api.service.GroupChatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,26 +28,26 @@ public class GroupChatDemo implements GroupChatService {
     WeWorkRestUtil restUtil;
 
     @Override
-    public GroupChatList getGroupchatList(String corpid, String secrect, GroupChatListQuery query) {
-        GroupChatList groupChatList = restUtil.post(GroupChatList.class,GROUPCHAT_LIST,corpid,secrect,query);
-        log.info("GroupChatList:{}", JSON.toJSONString(groupChatList));
-        return groupChatList;
+    public GroupChatListResponse getGroupchatList(String corpid, String corpsecret, GroupChatListRequest query) {
+        GroupChatListResponse groupChatListResponse = restUtil.post(GroupChatListResponse.class,URL_GROUPCHAT_LIST,corpid,corpsecret,query);
+        log.info("GroupChatList:{}", JSON.toJSONString(groupChatListResponse));
+        return groupChatListResponse;
     }
 
     @Override
-    public GroupChat getGrroupChat(String corpid, String secrect, GroupChatQuery query) {
-        GroupChat groupChat = restUtil.post(GroupChat.class,GROUPCHAT,corpid,secrect,query);
-        log.info("GroupChat:{}", JSON.toJSONString(groupChat));
-        return groupChat;
+    public GroupChatGetResponse getGrroupChat(String corpid, String corpsecret, GroupChatGetRequest query) {
+        GroupChatGetResponse groupChatGetResponse = restUtil.post(GroupChatGetResponse.class,URL_GROUPCHAT,corpid,corpsecret,query);
+        log.info("GroupChat:{}", JSON.toJSONString(groupChatGetResponse));
+        return groupChatGetResponse;
     }
 
     @Override
-    public String opengidToChatid(String corpid, String secrect, String opengid) {
+    public String opengidToChatid(String corpid, String corpsecret, String opengid) {
         Map<String,Object> data = new HashMap<>();
         data.put("opengid",opengid);
-        ChatId chatId = restUtil.post(ChatId.class,OPENGID_TO_CHATID,corpid,secrect,data);
-        log.info("ChatId:{}", JSON.toJSONString(chatId));
-        return chatId.getChatId();
+        OpengidToChatidResponse opengidToChatidResponse = restUtil.post(OpengidToChatidResponse.class,URL_OPENGID_TO_CHATID,corpid,corpsecret,data);
+        log.info("ChatId:{}", JSON.toJSONString(opengidToChatidResponse));
+        return opengidToChatidResponse.getChatId();
     }
 
 

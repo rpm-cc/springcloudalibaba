@@ -1,6 +1,8 @@
-package com.tencent.wework.api.domain;
+package com.tencent.wework.api.domain.response.external.contacts;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.tencent.wework.api.domain.response.WeWorkResponse;
+import lombok.Data;
 
 import java.util.List;
 
@@ -10,7 +12,8 @@ import java.util.List;
  * @version: 1.0
  * @description:
  */
-public class ExternalcontactList extends WeWorkResponse{
+@Data
+public class ExternalContactListReponse extends WeWorkResponse {
 
     /**
      *  获取客户列表返回的客户的id集合

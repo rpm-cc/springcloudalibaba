@@ -1,4 +1,4 @@
-package com.tencent.wework.api.domain.query;
+package com.tencent.wework.api.domain.request;
 
 /**
  * @author: Piming Ren
@@ -6,5 +6,6 @@ package com.tencent.wework.api.domain.query;
  * @version: 1.0
  * @description:
  */
-public interface Query {
+public interface WeWorkRequest {
+
 }

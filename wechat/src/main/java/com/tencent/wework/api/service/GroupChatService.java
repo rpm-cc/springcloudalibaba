@@ -1,15 +1,15 @@
 package com.tencent.wework.api.service;
 
-import com.tencent.wework.api.domain.GroupChat;
-import com.tencent.wework.api.domain.GroupChatList;
-import com.tencent.wework.api.domain.query.GroupChatListQuery;
-import com.tencent.wework.api.domain.query.GroupChatQuery;
+import com.tencent.wework.api.domain.response.external.groupchat.GroupChatGetResponse;
+import com.tencent.wework.api.domain.response.external.groupchat.GroupChatListResponse;
+import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
+import com.tencent.wework.api.domain.request.external.groupchat.GroupChatGetRequest;
 
 /**
  * @author: Piming Ren
  * @date: 2021/9/24 10:23
  * @version: 1.0
- * @description:
+ * @description: 对应 客户联系->客户群管理
  */
 public interface GroupChatService{
 
@@ -20,7 +20,7 @@ public interface GroupChatService{
      *  详见: https://open.work.weixin.qq.com/api/doc/90000/90135/92120
      *  </pre>
      */
-    String GROUPCHAT_LIST = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/list?access_token={access_token}";
+    String URL_GROUPCHAT_LIST = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/list?access_token={access_token}";
 
     /**
      * <pre>
@@ -29,38 +29,38 @@ public interface GroupChatService{
      * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92122
      * </pre>
      */
-    String GROUPCHAT = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/get?access_token={access_token}";
+    String URL_GROUPCHAT = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/get?access_token={access_token}";
 
 
     /**
      * 客户群opengid转换
      * 请求方式：POST（HTTPS）
      */
-    String OPENGID_TO_CHATID = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/opengid_to_chatid?access_token={access_token}";
+    String URL_OPENGID_TO_CHATID = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/opengid_to_chatid?access_token={access_token}";
     /**
      * 获取群聊列表
      * @param corpid 企业ID
-     * @param secrect 应用密钥
+     * @param corpsecret 应用密钥
      * @param query 查询条件
      * @return 返回群列表
      */
-    GroupChatList getGroupchatList(String corpid, String secrect , GroupChatListQuery query);
+    GroupChatListResponse getGroupchatList(String corpid, String corpsecret , GroupChatListRequest query);
 
     /**
      *  获取群详细信息
      * @param corpid 企业ID
-     * @param secrect 应用密钥
+     * @param corpsecret 应用密钥
      * @param query 查询条件
      * @return 群详情
      */
-    GroupChat getGrroupChat(String corpid, String secrect , GroupChatQuery query);
+    GroupChatGetResponse getGrroupChat(String corpid, String corpsecret , GroupChatGetRequest query);
 
     /**
      * 客户群opengid转换
      * @param corpid 企业ID
-     * @param secrect 应用密钥
+     * @param corpsecret 应用密钥
      * @param opengid 群opengid
      * @return
      */
-    String opengidToChatid(String corpid, String secrect ,String opengid);
+    String opengidToChatid(String corpid, String corpsecret ,String opengid);
 }
