@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @description:
  */
 @Data
-public class GroupChatGetRequest implements WeWorkRequest, Serializable {
+public class GetGroupChatRequest implements WeWorkRequest, Serializable {
     private static final long serialVersionUID = 8913618304429099690L;
     /**
      * 客户群ID
@@ -26,27 +26,27 @@ public class GroupChatGetRequest implements WeWorkRequest, Serializable {
     @JSONField(name = "need_name")
     private Integer needName;
 
-    public static GroupChatGetRequest.Builder builder() {
-        return new GroupChatGetRequest.Builder();
+    public static GetGroupChatRequest.Builder builder() {
+        return new GetGroupChatRequest.Builder();
     }
 
     public static class Builder {
-        GroupChatGetRequest request;
+        GetGroupChatRequest request;
 
         Builder() {
-            request = new GroupChatGetRequest();
+            request = new GetGroupChatRequest();
         }
 
-        public GroupChatGetRequest.Builder chatId(String chatId) {
+        public GetGroupChatRequest.Builder chatId(String chatId) {
             request.setChatId(chatId);
             return this;
         }
 
-        public GroupChatGetRequest.Builder needName(Integer needName) {
+        public GetGroupChatRequest.Builder needName(Integer needName) {
             request.setNeedName(needName);
             return this;
         }
-        public GroupChatGetRequest build(){
+        public GetGroupChatRequest build(){
             return request;
         }
 

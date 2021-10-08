@@ -14,7 +14,7 @@ import java.util.List;
  * @description:
  */
 @Data
-public class GroupChatGetResponse extends WeWorkResponse implements Serializable {
+public class GetGroupChatResponse extends WeWorkResponse implements Serializable {
 
     private static final long serialVersionUID = 1246332723145909576L;
     /**

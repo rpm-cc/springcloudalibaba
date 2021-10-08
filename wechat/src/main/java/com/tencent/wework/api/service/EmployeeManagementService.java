@@ -21,7 +21,7 @@ public interface EmployeeManagementService {
      * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92571
      * </pre>
      */
-    String URL_EXTERNAL_CONTACT_GET_FOLLOW_USER_LIST = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_follow_user_list?access_token={access_token}";
+    String URL_EXTERNAL_CONTACT_GET_FOLLOW_USER_LIST = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_follow_user_list?access_token={ACCESS_TOKEN}";
 
     /**
      * <pre>
@@ -30,7 +30,7 @@ public interface EmployeeManagementService {
      *  详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92572
      * </pre>
      */
-    String URL_ADD_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_contact_way?access_token={access_token}";
+    String URL_ADD_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_contact_way?access_token={ACCESS_TOKEN}";
 
     /**
      * <pre>
@@ -39,7 +39,7 @@ public interface EmployeeManagementService {
      *  详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92572
      * </pre>
      */
-    String URL_GET_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_contact_way?access_token={access_token}";
+    String URL_GET_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_contact_way?access_token={ACCESS_TOKEN}";
 
     /**
      * <pre>
@@ -48,7 +48,7 @@ public interface EmployeeManagementService {
      *  详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92572
      * </pre>
      */
-    String URL_LIST_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/list_contact_way?access_token={access_token}";
+    String URL_LIST_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/list_contact_way?access_token={ACCESS_TOKEN}";
 
     /**
      * <pre>
@@ -57,7 +57,7 @@ public interface EmployeeManagementService {
      *  详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92572
      * </pre>
      */
-    String URL_UPDATE_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/update_contact_way?access_token={access_token}";
+    String URL_UPDATE_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/update_contact_way?access_token={ACCESS_TOKEN}";
 
     /**
      * <pre>
@@ -66,7 +66,7 @@ public interface EmployeeManagementService {
      *  详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92572
      * </pre>
      */
-    String URL_DEL_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_contact_way?access_token={access_token}";
+    String URL_DEL_CONTACT_WAY = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_contact_way?access_token={ACCESS_TOKEN}";
 
     /**
      * <pre>
@@ -75,7 +75,7 @@ public interface EmployeeManagementService {
      *  详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92572
      * </pre>
      */
-    String URL_CLOSE_TEMP_CHAT = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/close_temp_chat?access_token={access_token}";
+    String URL_CLOSE_TEMP_CHAT = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/close_temp_chat?access_token={ACCESS_TOKEN}";
     /**
      * 获取配置了客户联系功能的成员列表
      * @param corpid 企业id

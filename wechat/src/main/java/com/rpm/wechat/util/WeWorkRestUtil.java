@@ -82,7 +82,7 @@ public class WeWorkRestUtil {
                 log.error("{}请求参数错误",url);
             }
         }
-        uriVariables.put("access_token", accessToken(corpid, corpsecret));
+        uriVariables.put("ACCESS_TOKEN", accessToken(corpid, corpsecret));
         final ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, _class, uriVariables);
         return getT(responseEntity);
     }
@@ -90,7 +90,7 @@ public class WeWorkRestUtil {
     public <T extends WeWorkResponse, E extends WeWorkRequest> T post(Class<T> _class, String url, String corpid, String corpsecret, E data) {
 
         String body = JSON.toJSONString(data);
-        JSONObject object  = post(url,corpid,corpsecret,body);
+        //JSONObject object  = post(url,corpid,corpsecret,body);
         final ResponseEntity<T> responseEntity = restTemplate.postForEntity(url,
                 body,
                 _class,

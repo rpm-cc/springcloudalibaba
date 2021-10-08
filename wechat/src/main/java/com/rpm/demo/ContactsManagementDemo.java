@@ -2,13 +2,9 @@ package com.rpm.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.rpm.wechat.util.WeWorkRestUtil;
-import com.tencent.wework.api.domain.request.external.contacts.BatchGetExternalContactRequest;
-import com.tencent.wework.api.domain.request.external.contacts.GetExternalContactRequest;
-import com.tencent.wework.api.domain.request.external.contacts.UpdateExternalContactRemarkRequest;
+import com.tencent.wework.api.domain.request.external.contacts.*;
 import com.tencent.wework.api.domain.response.WeWorkResponse;
-import com.tencent.wework.api.domain.response.external.contacts.BatchGetExternalContactResponse;
-import com.tencent.wework.api.domain.response.external.contacts.GetExternalContactResponse;
-import com.tencent.wework.api.domain.response.external.contacts.ExternalContactListReponse;
+import com.tencent.wework.api.domain.response.external.contacts.*;
 import com.tencent.wework.api.service.ContactsManagementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +21,18 @@ import org.springframework.stereotype.Service;
 public class ContactsManagementDemo implements ContactsManagementService {
 
     WeWorkRestUtil restUtil;
+
     @Autowired
     ContactsManagementDemo(WeWorkRestUtil restUtil) {
         this.restUtil = restUtil;
     }
+
     @Override
     public ExternalContactListReponse list(String corpid, String corpsecret, String userid) {
-        ExternalContactListReponse contactList = restUtil.get(ExternalContactListReponse.class,
+        ExternalContactListReponse response = restUtil.get(ExternalContactListReponse.class,
                 URL_EXTERNAL_CONTACT_LIST, corpid, corpsecret, userid);
-        log.info("ExternalcontactList:{}", JSON.toJSONString(contactList));
-        return contactList;
+        log.info("ExternalcontactList:{}", JSON.toJSONString(response));
+        return response;
     }
 
     @Override
@@ -48,23 +46,59 @@ public class ContactsManagementDemo implements ContactsManagementService {
         if (request.getCursor() != null) {
             url = url + "&cursor={cursor}";
         }
-        GetExternalContactResponse contactList = restUtil.get(GetExternalContactResponse.class, url, corpid, corpsecret, request);
-        log.info("ExternalContactGetResponse:{}", JSON.toJSONString(contactList));
-        return contactList;
+        GetExternalContactResponse response = restUtil.get(GetExternalContactResponse.class, url, corpid, corpsecret, request);
+        log.info("ExternalContactGetResponse:{}", JSON.toJSONString(response));
+        return response;
     }
 
     @Override
     public BatchGetExternalContactResponse batchGet(String corpid, String corpsecret, BatchGetExternalContactRequest request) {
-        BatchGetExternalContactResponse reponse = restUtil.post(BatchGetExternalContactResponse.class,
+        BatchGetExternalContactResponse response = restUtil.post(BatchGetExternalContactResponse.class,
                 URL_EXTERNAL_CONTACT_BATCH, corpid, corpsecret, request);
-        log.info("ExternalContactListReponse:{}", reponse);
-        return reponse;
+        log.info("ExternalContactListReponse:{}", JSON.toJSONString(response));
+        return response;
     }
 
     @Override
-    public WeWorkResponse updateCustomerRemark(String corpid, String corpsecret, UpdateExternalContactRemarkRequest request) {
-        WeWorkResponse response = restUtil.post(WeWorkResponse.class, URL_EXTERNAL_CONTACT_REMARK, corpid, corpsecret, request);
-        log.info("WeWorkResponse:{}", response);
+    public WeWorkResponse updateRemark(String corpid, String corpsecret, UpdateRemarkRequest request) {
+        WeWorkResponse response = restUtil.post(WeWorkResponse.class,
+                URL_EXTERNAL_CONTACT_REMARK, corpid, corpsecret, request);
+        log.info("WeWorkResponse:{}", JSON.toJSONString(response));
         return response;
     }
+
+    @Override
+    public ListCustomerStrategyResponse listCustomerStrategy(String corpid, String corpsecret, ListCustomerStrategyRequest request) {
+        ListCustomerStrategyResponse response = restUtil.post(ListCustomerStrategyResponse.class,
+                URL_CUSTOMER_STRATEGY_LIST, corpid, corpsecret, request);
+        log.info("ListCustomerStrategyResponse:{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public GetCustomerStrategyResponse getCustomerStrategy(String corpid, String corpsecret, GetCustomerStrategyRequest request) {
+        GetCustomerStrategyResponse response = restUtil.post(GetCustomerStrategyResponse.class,
+                URL_CUSTOMER_STRATEGY_GET, corpid, corpsecret, request);
+        log.info("GetCustomerStrategyResponse:{}", JSON.toJSONString(response));
+
+        return response;
+    }
+
+    @Override
+    public GetCustomerStrategyRangeResponse getRange(String corpid, String corpsecret, GetCustomerStrategyRangeRequest request) {
+        GetCustomerStrategyRangeResponse response  = restUtil.post(GetCustomerStrategyRangeResponse.class,
+                URL_CUSTOMER_STRATEGY_GET_RANGE,corpid,corpsecret,request);
+        log.info("GetCustomerStrategyRangeResponse:{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public CreateCustomerStrategyResponse createCustomerStrategy(String corpid, String corpsecret, CreateCustomerStrategyRequest request) {
+        CreateCustomerStrategyResponse response  = restUtil.post(CreateCustomerStrategyResponse.class,
+                URL_CUSTOMER_STRATEGY_CREATE,corpid,corpsecret,request);
+        log.info("CreateCustomerStrategyRequest:{}", JSON.toJSONString(response));
+        return response;
+    }
+
+
 }

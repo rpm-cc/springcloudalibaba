@@ -1,9 +1,9 @@
 package com.tencent.wework.api.service;
 
-import com.tencent.wework.api.domain.response.external.groupchat.GroupChatGetResponse;
+import com.tencent.wework.api.domain.response.external.groupchat.GetGroupChatResponse;
 import com.tencent.wework.api.domain.response.external.groupchat.GroupChatListResponse;
 import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
-import com.tencent.wework.api.domain.request.external.groupchat.GroupChatGetRequest;
+import com.tencent.wework.api.domain.request.external.groupchat.GetGroupChatRequest;
 
 /**
  * @author: Piming Ren
@@ -29,14 +29,14 @@ public interface GroupChatService{
      * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/92122
      * </pre>
      */
-    String URL_GROUPCHAT = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/get?access_token={access_token}";
+    String URL_GROUPCHAT = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/groupchat/get?access_token={ACCESS_TOKEN}";
 
 
     /**
      * 客户群opengid转换
      * 请求方式：POST（HTTPS）
      */
-    String URL_OPENGID_TO_CHATID = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/opengid_to_chatid?access_token={access_token}";
+    String URL_OPENGID_TO_CHATID = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/opengid_to_chatid?access_token={ACCESS_TOKEN}";
     /**
      * 获取群聊列表
      * @param corpid 企业ID
@@ -53,7 +53,7 @@ public interface GroupChatService{
      * @param query 查询条件
      * @return 群详情
      */
-    GroupChatGetResponse getGrroupChat(String corpid, String corpsecret , GroupChatGetRequest query);
+    GetGroupChatResponse getGrroupChat(String corpid, String corpsecret , GetGroupChatRequest query);
 
     /**
      * 客户群opengid转换
