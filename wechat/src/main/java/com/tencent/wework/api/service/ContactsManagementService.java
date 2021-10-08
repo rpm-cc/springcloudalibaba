@@ -75,18 +75,19 @@ public interface ContactsManagementService {
      */
     String URL_CUSTOMER_STRATEGY_GET_RANGE = "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/customer_strategy/get_range?access_token={ACCESS_TOKEN}";
     /**
-     * 编辑规则组及其管理范围
-     * 请求方式: POST(HTTP)
-     * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/94883
-     */
-    String URL_CUSTOMER_STRATEGY_EDIT ="https://qyapi.weixin.qq.com/cgi-bin/externalcontact/customer_strategy/edit?access_token={ACCESS_TOKEN}";
-    /**
      * 创建新的规则组
      * 请求方式: POST(HTTP)
      * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/94883
      */
     String URL_CUSTOMER_STRATEGY_CREATE ="https://qyapi.weixin.qq.com/cgi-bin/externalcontact/customer_strategy/create?access_token={ACCESS_TOKEN}";
+
     /**
+     * 编辑规则组及其管理范围
+     * 请求方式: POST(HTTP)
+     * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/94883
+     */
+    String URL_CUSTOMER_STRATEGY_EDIT ="https://qyapi.weixin.qq.com/cgi-bin/externalcontact/customer_strategy/edit?access_token={ACCESS_TOKEN}";
+      /**
      * 删除规则组
      * 请求方式: POST(HTTP)
      * 详见：https://open.work.weixin.qq.com/api/doc/90000/90135/94883
@@ -166,5 +167,20 @@ public interface ContactsManagementService {
      * @return
      */
     CreateCustomerStrategyResponse createCustomerStrategy(String corpid,String corpsecret,CreateCustomerStrategyRequest request);
-
+    /**
+     * 编辑规则组及其管理范围
+     * @param corpid     企业id
+     * @param corpsecret 对应的密钥
+     * @param request    请求体
+     * @return
+     */
+    WeWorkResponse editCustomerStrategy(String corpid,String corpsecret,EditCustomerStrategyRequest request);
+    /**
+     * 删除规则组及其管理范围
+     * @param corpid     企业id
+     * @param corpsecret 对应的密钥
+     * @param request    请求体
+     * @return
+     */
+    WeWorkResponse delCustomerStrategy(String corpid,String corpsecret,DelCustomerStrategyRequest request);
 }

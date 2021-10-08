@@ -86,17 +86,33 @@ public class ContactsManagementDemo implements ContactsManagementService {
 
     @Override
     public GetCustomerStrategyRangeResponse getRange(String corpid, String corpsecret, GetCustomerStrategyRangeRequest request) {
-        GetCustomerStrategyRangeResponse response  = restUtil.post(GetCustomerStrategyRangeResponse.class,
-                URL_CUSTOMER_STRATEGY_GET_RANGE,corpid,corpsecret,request);
+        GetCustomerStrategyRangeResponse response = restUtil.post(GetCustomerStrategyRangeResponse.class,
+                URL_CUSTOMER_STRATEGY_GET_RANGE, corpid, corpsecret, request);
         log.info("GetCustomerStrategyRangeResponse:{}", JSON.toJSONString(response));
         return response;
     }
 
     @Override
     public CreateCustomerStrategyResponse createCustomerStrategy(String corpid, String corpsecret, CreateCustomerStrategyRequest request) {
-        CreateCustomerStrategyResponse response  = restUtil.post(CreateCustomerStrategyResponse.class,
-                URL_CUSTOMER_STRATEGY_CREATE,corpid,corpsecret,request);
+        CreateCustomerStrategyResponse response = restUtil.post(CreateCustomerStrategyResponse.class,
+                URL_CUSTOMER_STRATEGY_CREATE, corpid, corpsecret, request);
         log.info("CreateCustomerStrategyRequest:{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public WeWorkResponse editCustomerStrategy(String corpid, String corpsecret, EditCustomerStrategyRequest request) {
+        WeWorkResponse response = restUtil.post(WeWorkResponse.class,
+                URL_CUSTOMER_STRATEGY_EDIT, corpid, corpsecret, request);
+        log.info("WeWorkResponse:{}", JSON.toJSONString(response));
+        return response;
+    }
+
+    @Override
+    public WeWorkResponse delCustomerStrategy(String corpid, String corpsecret, DelCustomerStrategyRequest request) {
+        WeWorkResponse response = restUtil.post(WeWorkResponse.class,
+                URL_CUSTOMER_STRATEGY_DEL, corpid, corpsecret, request);
+        log.info("WeWorkResponse:{}", JSON.toJSONString(response));
         return response;
     }
 
