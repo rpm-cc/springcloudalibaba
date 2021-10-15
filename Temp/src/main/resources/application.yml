@@ -1,0 +1,21 @@
+arthas:
+  agent-id: ABCDEFGHIJK
+  tunnel-server: "ws://127.0.0.1:3658/ws"
+  app-name: Temp
+#  telnet-port: 0
+#  http-port: 0
+#  ip: 127.0.0.1
+#  session-timeout: 0
+#  disabled-commands: stop
+#  home:
+#  slient-init: false
+#  stat-url:
+
+management:
+  endpoint:
+    arthas:
+      cache:
+        time-to-live: 5000ms
+      enabled: true
+server:
+  port: 8888

@@ -4,12 +4,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
+import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * @Author Piming Ren
@@ -20,19 +19,25 @@ import javax.websocket.server.ServerEndpoint;
 @Component
 public class WebSocketController extends TextWebSocketHandler {
 
-    @OnOpen
-    public void open(){
+    private static int onLineCount = 0;
 
-        System.out.println("WEBSOCKET onOpen");
+    @OnOpen
+    public void open(Session session){
+    ;
+        onLineCount ++;
+
+        System.out.println("WEBSOCKET onOpen count:"+onLineCount);
     }
 
     @OnClose
     public void close(){
+        onLineCount --;
         System.out.println("WEBSOCKET onClose");
     }
 
     @OnMessage
-    public void message(String message){
+    public void message(Session session,String message) throws IOException {
+        session.getBasicRemote().sendText("服务器收到的："+message);
         System.out.println("WEBSOCKET onMessage:"+message);
 
     }

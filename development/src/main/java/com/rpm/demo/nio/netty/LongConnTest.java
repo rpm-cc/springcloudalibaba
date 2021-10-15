@@ -29,7 +29,7 @@ public class LongConnTest {
                 try {
                     byte[] input = new byte[64];
                     int readByte = socket.getInputStream().read(input);
-                   //logger.debug("readByte " + readByte);
+                    System.out.println("readByte " + readByte);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -55,6 +55,8 @@ public class LongConnTest {
                 byteBuffer.put(content);
                 socket.getOutputStream().write(byteBuffer.array());
                 logger.debug("write content finish!");
+            }else  if(code==3){
+                socket.close();
             }
         }
         socket.close();

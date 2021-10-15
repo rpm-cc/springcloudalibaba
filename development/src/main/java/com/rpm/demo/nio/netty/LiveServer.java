@@ -28,7 +28,7 @@ public class LiveServer {
             return;
         }
         int port = Integer.parseInt(args[0]);
-        logger.debug("start server with port:" + port);
+        System.out.println("start server with port:" + port);
         new LiveServer(port).start();
     }
 
