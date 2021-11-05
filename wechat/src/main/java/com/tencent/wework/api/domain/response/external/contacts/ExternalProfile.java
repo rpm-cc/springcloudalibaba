@@ -1,7 +1,6 @@
 package com.tencent.wework.api.domain.response.external.contacts;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import lombok.Data;
 
 import java.util.List;

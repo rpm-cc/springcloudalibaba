@@ -1,9 +1,9 @@
 package com.tencent.wework.api.service;
 
+import com.tencent.wework.api.domain.request.external.groupchat.GetGroupChatRequest;
+import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
 import com.tencent.wework.api.domain.response.external.groupchat.GetGroupChatResponse;
 import com.tencent.wework.api.domain.response.external.groupchat.GroupChatListResponse;
-import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
-import com.tencent.wework.api.domain.request.external.groupchat.GetGroupChatRequest;
 
 /**
  * @author: Piming Ren

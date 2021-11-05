@@ -1,10 +1,8 @@
 package com.rpm.demo.dubbo.impl;
 
 import com.rpm.demo.dubbo.service.Notify;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 import java.util.HashMap;
 import java.util.Map;

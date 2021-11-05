@@ -2,11 +2,11 @@ package com.rpm.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.rpm.wechat.util.WeWorkRestUtil;
-import com.tencent.wework.api.domain.response.external.groupchat.OpengidToChatidResponse;
+import com.tencent.wework.api.domain.request.external.groupchat.GetGroupChatRequest;
+import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
 import com.tencent.wework.api.domain.response.external.groupchat.GetGroupChatResponse;
 import com.tencent.wework.api.domain.response.external.groupchat.GroupChatListResponse;
-import com.tencent.wework.api.domain.request.external.groupchat.GroupChatListRequest;
-import com.tencent.wework.api.domain.request.external.groupchat.GetGroupChatRequest;
+import com.tencent.wework.api.domain.response.external.groupchat.OpengidToChatidResponse;
 import com.tencent.wework.api.service.GroupChatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

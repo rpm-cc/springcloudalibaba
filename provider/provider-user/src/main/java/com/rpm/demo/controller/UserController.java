@@ -3,7 +3,6 @@ package com.rpm.demo.controller;
 import com.rpm.demo.dao.mapper.UserMapper;
 import io.seata.core.context.RootContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

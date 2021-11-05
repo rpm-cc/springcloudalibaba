@@ -1,6 +1,5 @@
 package com.rpm.demo.rules.example.sets;
 
-import com.alibaba.fastjson.JSON;
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.RuleListener;
 import org.jeasy.rules.api.Rules;

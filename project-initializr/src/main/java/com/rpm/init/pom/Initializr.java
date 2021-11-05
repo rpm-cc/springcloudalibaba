@@ -1,8 +1,6 @@
 package com.rpm.init.pom;
 
 
-import com.rpm.init.pom.DefaultDependencyNode;
-import com.rpm.init.pom.DefaultSpringBootParent;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;

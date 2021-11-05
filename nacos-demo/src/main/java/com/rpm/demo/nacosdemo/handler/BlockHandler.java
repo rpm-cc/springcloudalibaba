@@ -1,7 +1,6 @@
 package com.rpm.demo.nacosdemo.handler;
 
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import org.springframework.web.bind.annotation.RequestBody;
 
 public class BlockHandler {
 	// 注意1：返回值类型必须与业务方法的返回值类型相同

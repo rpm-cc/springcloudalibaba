@@ -2,7 +2,6 @@ package com.tencent.aes;
 
 import com.alibaba.fastjson.JSON;
 import com.tencent.callback.AddExternalUserEvent;
-import com.tencent.callback.Event;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

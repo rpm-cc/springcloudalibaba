@@ -1,7 +1,6 @@
 package com.rpm.demo.provider.es.repository;
 
 import com.rpm.demo.provider.es.docment.DocBean;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Highlight;

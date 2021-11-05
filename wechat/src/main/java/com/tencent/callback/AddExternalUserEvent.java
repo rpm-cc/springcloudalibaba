@@ -3,7 +3,7 @@ package com.tencent.callback;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * @author: Piming Ren

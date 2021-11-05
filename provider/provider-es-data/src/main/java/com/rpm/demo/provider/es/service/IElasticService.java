@@ -3,8 +3,6 @@ package com.rpm.demo.provider.es.service;
 
 import com.rpm.demo.provider.es.docment.DocBean;
 import org.springframework.data.domain.Page;
-import org.springframework.data.elasticsearch.core.SearchHit;
-
 
 import java.util.Iterator;
 import java.util.List;
