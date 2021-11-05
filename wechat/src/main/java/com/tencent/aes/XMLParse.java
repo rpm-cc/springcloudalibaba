@@ -10,9 +10,18 @@ package com.tencent.aes;
 
 import java.io.StringReader;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
+import com.tencent.callback.AddExternalUserEvent;
+import com.tencent.callback.Event;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -23,7 +32,7 @@ import org.xml.sax.InputSource;
  *
  * 提供提取消息格式中的密文及生成回复消息格式的接口.
  */
-class XMLParse {
+public class XMLParse {
 
 	/**
 	 * 提取出xml数据包中的加密消息
@@ -100,5 +109,22 @@ class XMLParse {
 				+ "<TimeStamp>%3$s</TimeStamp>\n" + "<Nonce><![CDATA[%4$s]]></Nonce>\n" + "</xml>";
 		return String.format(format, encrypt, signature, timestamp, nonce);
 
+	}
+
+
+	public static <T extends Event> T parse(Class<T> _class, String xml){
+		T t = null;
+		try {
+			JAXBContext context  = JAXBContext.newInstance(_class);
+			XMLStreamReader reader  = XMLInputFactory.newFactory().createXMLStreamReader(new StringReader(xml));;
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			JAXBElement<T> element  = unmarshaller.unmarshal(reader,_class);
+			t= element.getValue();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		} catch (XMLStreamException e) {
+			e.printStackTrace();
+		}
+		return t;
 	}
 }

@@ -1,5 +1,8 @@
 package com.tencent.aes;
 
+import com.alibaba.fastjson.JSON;
+import com.tencent.callback.AddExternalUserEvent;
+import com.tencent.callback.Event;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -83,6 +86,20 @@ public class Sample {
 		try {
 			String sMsg = wxcpt.DecryptMsg(sReqMsgSig, sReqTimeStamp, sReqNonce, sReqData);
 			System.out.println("after decrypt msg: " + sMsg);
+			String xml  = "<xml>\n" +
+					"    <ToUserName><![CDATA[toUser]]></ToUserName>\n" +
+					"    <FromUserName><![CDATA[sys]]></FromUserName> \n" +
+					"    <CreateTime>1403610513</CreateTime>\n" +
+					"    <MsgType><![CDATA[event]]></MsgType>\n" +
+					"    <Event><![CDATA[change_external_contact]]></Event>\n" +
+					"    <ChangeType><![CDATA[del_external_contact]]></ChangeType>\n" +
+					"    <UserID><![CDATA[zhangsan]]></UserID>\n" +
+					"    <ExternalUserID><![CDATA[woAJ2GCAAAXtWyujaWJHDDGi0mACAAAA]]></ExternalUserID>\n" +
+					"    <Source><![CDATA[DELETE_BY_TRANSFER]]></Source>\n" +
+					"</xml>";
+			AddExternalUserEvent event = XMLParse.parse(AddExternalUserEvent.class,xml);
+
+			System.out.println("获取到的事件对象"+ JSON.toJSONString(event));
 			// TODO: 解析出明文xml标签的内容进行处理
 			// For example:
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

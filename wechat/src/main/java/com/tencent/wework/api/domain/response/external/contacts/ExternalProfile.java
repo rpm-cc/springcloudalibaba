@@ -6,6 +6,12 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author: Piming Ren
+ * @date: 2021/9/30 11:36
+ * @version: 1.0
+ * @description:
+ */
 @Data
 public class ExternalProfile {
     /**

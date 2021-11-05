@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +17,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
 
 /**
  * 企业微信服务起api接口调用工具类 。
@@ -42,6 +44,8 @@ public class WeWorkRestUtil {
     RestTemplate restTemplate;
     @Autowired
     RedisTemplate<String, String> redisTemplate;
+    @Autowired
+    RedisLockRegistry redisLockRegistry;
 
     /**
      * 不需要accesstoken
@@ -79,7 +83,7 @@ public class WeWorkRestUtil {
                     uriVariables.put(name, value);
                 }
             } catch (IllegalAccessException e) {
-                log.error("{}请求参数错误",url);
+                log.error("{}请求参数错误", url);
             }
         }
         uriVariables.put("ACCESS_TOKEN", accessToken(corpid, corpsecret));
@@ -129,27 +133,35 @@ public class WeWorkRestUtil {
 
     private String accessToken(String corpid, String corpsecret) {
         String accessTokenKey = "AccessToken:" + corpid + ":" + corpsecret;
-        String accessToken = redisTemplate.opsForValue().get(accessTokenKey);
-        if (accessToken != null) {
-            Long expire = redisTemplate.getExpire(accessTokenKey, TimeUnit.SECONDS);
-            if (expire.compareTo(200L) == 1) {
+        String accessToken = null;
+        Lock lock = redisLockRegistry.obtain(accessTokenKey);
+        try {
+            // 设置5 秒等待超时时间 ，如果其他线程再这5秒内一支持有该锁。则获取锁失败。
+            // 注意使用RedisLockRegistry 设置的锁的有效期时间，默认是一分钟。再本实力中；
+            // 我设置成了10秒。在 RedisConfiguration中可以修改。
+            boolean isLock = lock.tryLock(5, TimeUnit.SECONDS);
+            accessToken = redisTemplate.opsForValue().get(accessTokenKey);
+            if (!isLock) {
                 return accessToken;
             }
-        }
-        if (redisTemplate.opsForValue().setIfAbsent("lock" + accessTokenKey, "lock")) {
-            try {
-                AccessToken token = this.get(AccessToken.class, API_URI, corpid, corpsecret);
-                accessToken = token.getAccessToken();
-                log.info("AccessToken:{}", accessToken);
-                redisTemplate.opsForValue().set(accessTokenKey, accessToken, 7200, TimeUnit.SECONDS);
-            } catch (Exception e) {
-                log.error("AccessToken 获取失败{}", e);
-            } finally {
-                redisTemplate.delete("lock" + accessTokenKey);
+            if (accessToken != null) {
+                Long expire = redisTemplate.getExpire(accessTokenKey, TimeUnit.SECONDS);
+                if (expire.compareTo(200L) == 1) {
+                    return accessToken;
+                }
             }
+            AccessToken token = this.get(AccessToken.class, API_URI, corpid, corpsecret);
+            accessToken = token.getAccessToken();
+            log.info("AccessToken:{}", accessToken);
+            redisTemplate.opsForValue().set(accessTokenKey, accessToken, 7200, TimeUnit.SECONDS);
             return accessToken;
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
+
         return accessToken;
     }
 

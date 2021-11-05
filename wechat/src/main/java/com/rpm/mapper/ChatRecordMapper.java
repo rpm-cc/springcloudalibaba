@@ -3,6 +3,7 @@ package com.rpm.mapper;
 import com.tencent.wework.domain.Chatrecord;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Piming Ren
@@ -11,5 +12,5 @@ import java.util.List;
  * @description:
  */
 public interface ChatRecordMapper {
-    List<String> selectList();
+    List<Map> selectList();
 }

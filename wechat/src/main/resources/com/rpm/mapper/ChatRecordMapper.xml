@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rpm.mapper.ChatRecordMapper">
 
-    <select id="selectList" resultType="java.lang.String">
-         select original_json from qxin_chatrecord limit 10
+    <select id="selectList" resultType="java.util.Map">
+         select fileUrl,original_json as json from qxin_chatrecord limit 10,1000
     </select>
 
 </mapper>
